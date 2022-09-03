@@ -1,0 +1,38 @@
+---
+export interface Props {
+  id?: string;
+  placeholderText?: string;
+}
+
+const { id = "scratch-pad", placeholderText } = Astro.props as Props;
+---
+
+<textarea class="scratch-pad" id={id} placeholder={placeholderText}></textarea>
+
+<script>
+  const scratchPad =
+    document.querySelector<HTMLTextAreaElement>(".scratch-pad");
+
+  const supportTabs = (textArea: HTMLTextAreaElement | null) => {
+    if (!textArea) return;
+    textArea.onkeydown = (event) => {
+      if (event.key !== "Tab") return;
+      return false;
+    };
+  };
+
+  supportTabs(scratchPad);
+</script>
+
+<style>
+  textarea {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0.5rem;
+    resize: none;
+    outline: none;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+  }
+</style>
